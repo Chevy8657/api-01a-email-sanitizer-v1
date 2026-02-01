@@ -19,7 +19,7 @@ def health():
 
 @app.get("/v1/email-sanitize", response_model=EmailSanitizeResponse)
 def email_sanitize(email: str = Query(..., description="Email address to sanitize/normalize")):
-    raw = email
+    raw = email.replace(" ", "+")
     try:
         v = validate_email(raw, check_deliverability=False)
         return {
